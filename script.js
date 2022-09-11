@@ -1,3 +1,5 @@
+
+
 async function Request_driver_data() { //Command collects data on the driver
     let url = ("http://ergast.com/api/f1/drivers/"+document.getElementById("textbox_1").value+"/results.json?limit=800") //Concats the users requested driver with the main url
     let res = await fetch(url); //Calls the API
@@ -9,36 +11,55 @@ async function Request_driver_data() { //Command collects data on the driver
     }
 };
 
+function Display(){
+    for (let i = 0; i < json['MRData']['RaceTable']['Races'].length; i++){
+        const div_tab = document.createElement('div');
+        div_tab.id = 'div1';
+        const Race_name_year = div_tab.appendChild(document.createElement(`p`));
+        Race_name_year.classList.add(`name`);
+        Race_name_year.textContent = json['MRData']['RaceTable']['Races'][i]['raceName'] + " " + json['MRData']['RaceTable']['Races'][i]['season'] 
 
-function Format_Driver_Races(){
+        const Round = div_tab.appendChild(document.createElement(`p`));
+        Round.classList.add(`round`);
+        date = json['MRData']['RaceTable']['Races'][i]['date']
+        var today = date.slice(8,10) + "/" + date.slice(5,7)+ "/" + date.slice(0,4);
+        Round.textContent = "Round " + (json['MRData']['RaceTable']['Races'][i]['round'] + " "+ today)
 
-    Total_Races = Number(json['MRData']['RaceTable']['Races'].length) //Cals how many racees that driver has been in
-    var Top_10 = 0
-    var Pole = 0 
-    var race_Win = 0
-
-    for (let i = 0; i < Total_Races; i++) { //Loops for all the races the driver has been in!
-        List_of_raced_races = json['MRData']['RaceTable']['Races'][i]['Results'][0]['position'] //Collects race postion
-        //Works out if it's a top 10 finsh 
-        if (List_of_raced_races < 10){
-        
-            if (List_of_raced_races <= 3){ //checks for pole
-                if (List_of_raced_races == 1){ //checks for a race win
-                    var race_Win = race_Win + 1
-                }
-                else{
-                    var Pole = Pole + 1
-                }
-            }
-            else{
-                var Top_10 = 1 + Top_10 
-            }
+        const Postion = div_tab.appendChild(document.createElement(`p`));
+        if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 1){
+            Postion.classList.add(`P1`);
         }
+        if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 2){
+            Postion.classList.add(`P2`);
+        }
+        if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 3){
+            Postion.classList.add(`P3`);
+        }
+        Postion.textContent = "Postion at the end of the race: "+json['MRData']['RaceTable']['Races'][i]['Results'][0]['position'] + " " + json['MRData']['RaceTable']['Races'][i]['Results'][0]['status'] 
+
+
+        try{
+        const AverageSpeed = div_tab.appendChild(document.createElement(`p`));
+        AverageSpeed.textContent =  "Average Speed " + json['MRData']['RaceTable']['Races'][i]['Results'][0]['FastestLap']['AverageSpeed']['speed'] + " KPH"
+        }
+
+        catch{
+            console.log(" ")
+        }
+        
+        try{
+        const FastestLap = div_tab.appendChild(document.createElement(`p`));
+        FastestLap.textContent = "Drivers Quicket lap "+ json['MRData']['RaceTable']['Races'][i]['Results'][0]['FastestLap']['Time']['time']
+        }
+        
+        catch{
+            console.log(" ")
+        }
+
+
+
+        document.body.appendChild(div_tab);
+        
+
     }
-    
-    //Updates HTML
-    document.getElementById('Total_Races').innerHTML =Total_Races
-    document.getElementById('Top_10_finish').innerHTML =Top_10
-    document.getElementById('Pole').innerHTML =Pole
-    document.getElementById('Race_Wins').innerHTML =race_Win
 }
