@@ -1,7 +1,5 @@
-
-
 async function Request_driver_data() { //Command collects data on the driver
-    let url = ("http://ergast.com/api/f1/drivers/"+document.getElementById("textbox_1").value+"/results.json?limit=800") //Concats the users requested driver with the main url
+    let url = ("https://ergast.com/api/f1/drivers/Leclerc/results.json?limit=800") //Concats the users requested driver with the main url
     let res = await fetch(url); //Calls the API
     if (res.ok) { //Checks for a sucessful API call
         window.value =  json = await res.json(); //return data as json
@@ -12,54 +10,39 @@ async function Request_driver_data() { //Command collects data on the driver
 };
 
 function Display(){
-    for (let i = 0; i < json['MRData']['RaceTable']['Races'].length; i++){
-        const div_tab = document.createElement('div');
-        div_tab.id = 'div1';
-        const Race_name_year = div_tab.appendChild(document.createElement(`p`));
-        Race_name_year.classList.add(`name`);
-        Race_name_year.textContent = json['MRData']['RaceTable']['Races'][i]['raceName'] + " " + json['MRData']['RaceTable']['Races'][i]['season'] 
-
-        const Round = div_tab.appendChild(document.createElement(`p`));
-        Round.classList.add(`round`);
-        date = json['MRData']['RaceTable']['Races'][i]['date']
-        var today = date.slice(8,10) + "/" + date.slice(5,7)+ "/" + date.slice(0,4);
-        Round.textContent = "Round " + (json['MRData']['RaceTable']['Races'][i]['round'] + " "+ today)
-
-        const Postion = div_tab.appendChild(document.createElement(`p`));
-        if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 1){
-            Postion.classList.add(`P1`);
-        }
-        if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 2){
-            Postion.classList.add(`P2`);
-        }
-        if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 3){
-            Postion.classList.add(`P3`);
-        }
-        Postion.textContent = "Postion at the end of the race: "+json['MRData']['RaceTable']['Races'][i]['Results'][0]['position'] + " " + json['MRData']['RaceTable']['Races'][i]['Results'][0]['status'] 
-
-
-        try{
-        const AverageSpeed = div_tab.appendChild(document.createElement(`p`));
-        AverageSpeed.textContent =  "Average Speed " + json['MRData']['RaceTable']['Races'][i]['Results'][0]['FastestLap']['AverageSpeed']['speed'] + " KPH"
-        }
-
-        catch{
-            console.log(" ")
-        }
-        
-        try{
-        const FastestLap = div_tab.appendChild(document.createElement(`p`));
-        FastestLap.textContent = "Drivers Quicket lap "+ json['MRData']['RaceTable']['Races'][i]['Results'][0]['FastestLap']['Time']['time']
-        }
-        
-        catch{
-            console.log(" ")
-        }
-
-
-
-        document.body.appendChild(div_tab);
-        
-
+    DNF = 0 
+    P1_baby = 0
+    PO = 0
+    Races_entered = json['MRData']['RaceTable']['Races'].length;
+    for (let i = 0; i <json['MRData']['RaceTable']['Races'].length; i++){
+    console.log(json['MRData']['RaceTable']['Races'][i]['season'])
+    if ((json['MRData']['RaceTable']['Races'][i]['Results'][0]['status']) != "Finished"){
+        DNF = DNF + 1
     }
+    if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 1){
+        P1_baby  = P1_baby + 1 
+    }
+    if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 2){
+        PO = PO + 1
+    }
+    if (Number(json['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 3){
+        PO = PO + 1
+    }
+    }
+    
+
+    const div_tab = document.createElement('div');
+    const DNF_Count = div_tab.appendChild(document.createElement(`p`));
+    DNF_Count.textContent = "DNF " + DNF
+
+    const Race_Starts  = div_tab.appendChild(document.createElement(`p`));
+    Race_Starts.textContent = "Race Starts " +json['MRData']['RaceTable']['Races'].length;
+
+    const P1  = div_tab.appendChild(document.createElement(`p`));
+    P1.textContent = "Race Wuns " +P1_baby;
+
+    const podium  = div_tab.appendChild(document.createElement(`p`));
+    podium.textContent = "Podium " +PO  
+
+    document.body.appendChild(div_tab);
 }
