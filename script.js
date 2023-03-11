@@ -13,6 +13,7 @@ function Display(){
     DNF = 0 
     P1_baby = 0
     PO = 0
+
     Races_entered = json['MRData']['RaceTable']['Races'].length;
     for (let i = 0; i <json['MRData']['RaceTable']['Races'].length; i++){
     console.log(json['MRData']['RaceTable']['Races'][i]['season'])
@@ -30,19 +31,9 @@ function Display(){
     }
     }
     
+    document.querySelector("#DNF").innerHTML = DNF;
+    document.querySelector("#Race_Start").innerHTML = json['MRData']['RaceTable']['Races'].length;
+    document.querySelector("#Podium").innerHTML = P1_baby;
+    document.querySelector("#Race_Win").innerHTML = PO;
 
-    const div_tab = document.createElement('div');
-    const DNF_Count = div_tab.appendChild(document.createElement(`p`));
-    DNF_Count.textContent = "DNF " + DNF
-
-    const Race_Starts  = div_tab.appendChild(document.createElement(`p`));
-    Race_Starts.textContent = "Race Starts " +json['MRData']['RaceTable']['Races'].length;
-
-    const P1  = div_tab.appendChild(document.createElement(`p`));
-    P1.textContent = "Race Wuns " +P1_baby;
-
-    const podium  = div_tab.appendChild(document.createElement(`p`));
-    podium.textContent = "Podium " +PO  
-
-    document.body.appendChild(div_tab);
 }
