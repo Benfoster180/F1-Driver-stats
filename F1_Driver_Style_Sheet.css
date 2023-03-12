@@ -1,37 +1,10 @@
 
 body {
     font-family: 'Arial', sans-serif;
-  }
-.name {
-    background: #Ff2800;
-    color: #FFF;
-    font-size: 22px;
-    font-weight: bold;
 }
 
-.round{
-    font-size: 16px;
-    color: #666;
-}
-
-#div1 {
-    border: 1px solid #Ff2800;
-    background-color: #FFF;
-    border-radius: 10px;
-    padding: 30px;
-    width: 50%;
-    margin: auto;
-    margin-top: 50px;
-}
-
-.P1{
-    background-color: gold;
-}
-
-.P2{
-    background-color: silver;
-}
-
-.P3{
-    background-color: #Cd7f32;
+#Main_Title{
+    text-align: center;
+    color: red;
+    
 }
