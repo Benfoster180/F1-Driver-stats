@@ -1,10 +1,49 @@
 
-body {
-    font-family: 'Arial', sans-serif;
-}
+    body {
+        font-family: 'Arial', sans-serif;
+    }
 
-#Main_Title{
-    text-align: center;
-    color: red;
-    
-}
+    #Main_Title{
+        text-align: center;
+        color: red;
+        
+    }
+
+    #Record_table{
+        table-layout: fixed;
+        width:25%;
+        height:100%;
+        margin-left: auto; 
+        margin-right: 0;
+        float: right;
+        
+        
+    }
+
+
+
+    #Headshot{
+        height:100%;
+        margin-left: 0; 
+        margin-right: auto;
+        float: right;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        float: left;
+    }
+
+    #All_time_stats_table{
+        position: relative;
+        height: 300px;
+        border: solid;
+        vertical-align: bottom;
+        margin: 50px;
+        height: 100px;
+        width: 43%;
+        text-align: center;
+        Margin-left: auto;
+        Margin-right: auto;
+        
+    }
+

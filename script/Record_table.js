@@ -30,11 +30,9 @@ function Display(leclerc_raw_data){
     }
 
     
-    if (Number(leclerc_raw_data['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 2){
+    if (Number(leclerc_raw_data['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 2 ||
+        Number(leclerc_raw_data['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 3  ){
         var Podium = Podium + 1;
-    }
-    if (Number(leclerc_raw_data['MRData']['RaceTable']['Races'][i]['Results'][0]['position']) == 3){
-        Podium = Podium + 1
     }
     }
     
