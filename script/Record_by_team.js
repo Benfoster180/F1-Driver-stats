@@ -51,12 +51,12 @@ function results(leclerc_raw_data   ){
     }
     document.querySelector("#sauber_DNF").innerHTML = Sauber_record["DNF"];
     document.querySelector("#sauber_Race_Start").innerHTML = Sauber_record["Race_Starts"];
-    document.querySelector("#sauber_Podium").innerHTML = Sauber_record["Podium"];
+    document.querySelector("#sauber_Podium").innerHTML = Sauber_record["Podium"] + Sauber_record["Race_wins"];
     document.querySelector("#sauber_Race_Win").innerHTML = Sauber_record["Race_wins"];
 
     document.querySelector("#ferrari_DNF").innerHTML = Ferrari_record["DNF"];
     document.querySelector("#ferrari_Race_Start").innerHTML = Ferrari_record["Race_Starts"];
-    document.querySelector("#ferrari_Podium").innerHTML = Ferrari_record["Podium"];
+    document.querySelector("#ferrari_Podium").innerHTML = Ferrari_record["Podium"] + Ferrari_record["Race_wins"];
     document.querySelector("#ferrari_Race_Win").innerHTML = Ferrari_record["Race_wins"];
 }
 
